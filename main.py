@@ -20,7 +20,7 @@ parser.add_argument('--lr', type=float, default=0.01, help='Learning Rate. Defau
 parser.add_argument('--cuda', action='store_true', help='use cuda?')
 parser.add_argument('--threads', type=int, default=4, help='number of threads for data loader to use')
 parser.add_argument('--seed', type=int, default=123, help='random seed to use. Default=123')
-parser.add_argument('--split_ratio', type=float, default=0.2, help='split ratio for train and test. Default=0.2')
+parser.add_argument('--split_ratio', type=float, default=0.8, help='split ratio for train and test. Default=0.2')
 opt = parser.parse_args()
 
 print(opt)
@@ -37,7 +37,7 @@ if cuda:
     torch.cuda.manual_seed(opt.seed)
 
 print('===> Loading datasets')
-train_set, test_set = train_test_split(upscale_factor, root_dir, preprocessed_dir, split_ratio)
+train_set, test_set = train_test_split(opt.upscale_factor, root_dir, preprocessed_dir, opt.split_ratio)
 training_data_loader = DataLoader(dataset=train_set, num_workers=opt.threads, batch_size=opt.batchSize, shuffle=True)
 testing_data_loader = DataLoader(dataset=test_set, num_workers=opt.threads, batch_size=opt.testBatchSize, shuffle=False)
 

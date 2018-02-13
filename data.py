@@ -35,7 +35,7 @@ def train_test_split(upscale_factor, root_dir, preprocessed_dir, split_ratio):
     data_preprocess(upscale_factor, root_dir, preprocessed_dir)
     file_list = listdir(abspath(preprocessed_dir))
     shuffle(file_list) #is it necessary since there is shuffle in dataloader
-    split_idx = floor(len(file_list) * split)
+    split_idx = int(floor(len(file_list) * split_ratio))
     training = file_list[:split_idx]
     testing = file_list[split_idx:]
     return training, testing
